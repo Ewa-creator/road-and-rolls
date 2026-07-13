@@ -120,13 +120,6 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 }
 .nav.scrolled .nav-icon-btn { color:var(--ink); }
 .nav-icon-btn svg { display:block; }
-.cart-count {
-  position:absolute; top:-6px; right:-8px;
-  background:var(--cobalt); color:#fff; border-radius:50%;
-  width:16px; height:16px; display:flex; align-items:center; justify-content:center;
-  font-size:9px; font-weight:700; font-family:'Space Mono',monospace;
-}
-.cart-count:empty, .cart-count[data-zero="true"] { display:none; }
 
 /* ─── HERO VIDEO ─── */
 .hero {
@@ -484,56 +477,6 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.04em; opacity:.4;
 }
 
-/* ─── CART DRAWER ─── */
-.cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:200; opacity:0; pointer-events:none; transition:opacity .25s; }
-.cart-overlay.open { opacity:1; pointer-events:auto; }
-.cart-drawer {
-  position:fixed; top:0; right:0; bottom:0; width:420px; max-width:100vw;
-  background:var(--w); z-index:201;
-  transform:translateX(100%); transition:transform .3s cubic-bezier(.25,.46,.45,.94);
-  display:flex; flex-direction:column;
-  border-left:var(--border);
-}
-.cart-drawer.open { transform:translateX(0); }
-.cart-head { padding:20px 24px; border-bottom:var(--border); display:flex; align-items:center; justify-content:space-between; }
-.cart-head-title { font-family:'Fraunces',serif; font-weight:900; font-size:20px; }
-.cart-close { font-size:20px; opacity:.4; transition:opacity .15s; }
-.cart-close:hover { opacity:1; }
-.cart-ship { padding:12px 24px; background:var(--cobalt-pale); border-bottom:var(--border); }
-.ship-text { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.06em; color:var(--cobalt); margin-bottom:6px; }
-.ship-bar { height:3px; background:var(--sand); border-radius:2px; }
-.ship-fill { height:100%; background:var(--cobalt); border-radius:2px; transition:width .4s; }
-.cart-body { flex:1; overflow-y:auto; padding:20px 24px; }
-.cart-empty { text-align:center; padding:60px 20px; }
-.cart-empty-icon { font-size:40px; margin-bottom:16px; }
-.cart-empty p { color:var(--grey); font-size:14px; line-height:1.6; }
-.cart-item { display:flex; gap:16px; padding:16px 0; border-bottom:var(--border); }
-.ci-img { width:64px; height:64px; background:var(--cobalt-pale); border-radius:var(--r); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:24px; }
-.ci-info { flex:1; }
-.ci-name { font-weight:500; font-size:14px; margin-bottom:4px; }
-.ci-meta { font-family:'Space Mono',monospace; font-size:10px; opacity:.4; margin-bottom:8px; }
-.ci-controls { display:flex; align-items:center; justify-content:space-between; }
-.ci-qty { display:flex; align-items:center; gap:8px; border:var(--border); border-radius:var(--r); }
-.ci-qty button { width:30px; height:30px; display:flex; align-items:center; justify-content:center; font-size:16px; transition:background .1s; }
-.ci-qty button:hover { background:var(--sand); }
-.ci-qty span { font-size:13px; min-width:20px; text-align:center; }
-.ci-price { font-family:'Fraunces',serif; font-weight:700; font-size:16px; }
-.ci-remove { font-size:11px; opacity:.3; transition:opacity .15s; }
-.ci-remove:hover { opacity:1; }
-.cart-foot { padding:20px 24px; border-top:var(--border); }
-.cart-charity { display:flex; justify-content:space-between; font-size:13px; padding:10px 0; border-bottom:var(--border); margin-bottom:8px; }
-.cart-charity-label { color:var(--grey); }
-.cart-charity-val { color:var(--green); font-weight:600; }
-.cart-total { display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; margin-bottom:16px; }
-.cart-total-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; opacity:.4; }
-.cart-total-val { font-family:'Fraunces',serif; font-weight:900; font-size:28px; }
-.btn-checkout {
-  width:100%; padding:16px;
-  background:var(--cobalt); color:#fff;
-  font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.06em; font-weight:700;
-  border-radius:var(--r); transition:background .15s;
-}
-.btn-checkout:hover { background:var(--cobalt-dk); }
 
 /* ─── SIZE GUIDE MODAL ─── */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; opacity:0; pointer-events:none; transition:opacity .2s; display:flex; align-items:center; justify-content:center; }
@@ -605,10 +548,9 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <button class="nav-icon-btn" aria-label="Konto">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
     </button>
-    <button class="nav-icon-btn" id="cartBtn" aria-label="Koszyk" onclick="toggleCart()">
+    <a class="nav-icon-btn" href="https://roadandrolls.com/cart" aria-label="Koszyk">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
-      <span class="cart-count" id="cartCount" data-zero="true">0</span>
-    </button>
+    </a>
   </div>
 </nav>
 
@@ -639,18 +581,18 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 <section class="product-section" id="kup">
   <div class="product-visuals">
     <div class="gallery-main" id="galleryMain">
-      <!-- {% for image in product.images %} -->
+      <!-- {% for image in product.images %} — realne zdjęcia produktu "Pakiet 001" z Shopify CDN -->
       <div class="gallery-slide active" data-index="0">
-        <div class="gallery-slide-placeholder">📸<br>ZDJĘCIE 1</div>
+        <img src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/2.png?v=1782689631" alt="Pakiet 001 — Road & Rolls" loading="eager">
       </div>
       <div class="gallery-slide" data-index="1">
-        <div class="gallery-slide-placeholder">📸<br>ZDJĘCIE 2</div>
+        <img src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/1.png?v=1782689666" alt="Pakiet 001 — Road & Rolls" loading="lazy">
       </div>
       <div class="gallery-slide" data-index="2">
-        <div class="gallery-slide-placeholder">📸<br>ZDJĘCIE 3</div>
+        <img src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/3.png?v=1781283768" alt="Pakiet 001 — Road & Rolls" loading="lazy">
       </div>
       <div class="gallery-slide" data-index="3">
-        <div class="gallery-slide-placeholder">📸<br>ZDJĘCIE 4</div>
+        <img src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/4.png?v=1781283767" alt="Pakiet 001 — Road & Rolls" loading="lazy">
       </div>
       <!-- {% endfor %} -->
       <button class="gallery-arrow gallery-arrow-prev" onclick="galleryStep(-1)" aria-label="Poprzednie zdjęcie">←</button>
@@ -712,15 +654,15 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   </div>
 </section>
 
-<!-- Dane wariantów produktu "Pakiet 001" — unisex, tylko rozmiar jako opcja.
+<!-- Dane wariantów produktu "Pakiet 001" — prawdziwe ID wariantów z roadandrolls.com/products.json.
      W Shopify podmień całą zawartość tagu na: {{ product.variants | json }} -->
 <script type="application/json" id="ProductVariants">
 [
-  {"id":"demo-xs","size":"XS","price":169,"available":true},
-  {"id":"demo-s","size":"S","price":169,"available":true},
-  {"id":"demo-m","size":"M","price":169,"available":true},
-  {"id":"demo-l","size":"L","price":169,"available":true},
-  {"id":"demo-xl","size":"XL","price":169,"available":true}
+  {"id":62335706759498,"size":"XS","price":169,"available":true},
+  {"id":62335706792266,"size":"S","price":169,"available":true},
+  {"id":62335706825034,"size":"M","price":169,"available":true},
+  {"id":62335706857802,"size":"L","price":169,"available":true},
+  {"id":62335706890570,"size":"XL","price":169,"available":true}
 ]
 </script>
 
@@ -843,35 +785,6 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   </div>
 </footer>
 
-<!-- CART DRAWER -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-head">
-    <span class="cart-head-title">Koszyk 🛒</span>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
-  </div>
-  <div class="cart-ship">
-    <p class="ship-text" id="shipText">Do darmowej dostawy brakuje Ci 300 zł</p>
-    <div class="ship-bar"><div class="ship-fill" id="shipFill" style="width:0%"></div></div>
-  </div>
-  <div class="cart-body" id="cartBody">
-    <div class="cart-empty">
-      <div class="cart-empty-icon">🥐</div>
-      <p>Koszyk pusty jak żołądek przed biegiem.<br>Dodaj pakiet challange i zaczynamy!</p>
-    </div>
-  </div>
-  <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-charity">
-      <span class="cart-charity-label">💚 Na cele charytatywne (po wyzwaniu)</span>
-      <span class="cart-charity-val" id="charityAmt">0 zł</span>
-    </div>
-    <div class="cart-total">
-      <span class="cart-total-label">RAZEM</span>
-      <span class="cart-total-val" id="cartTotal">0 zł</span>
-    </div>
-    <button class="btn-checkout">PRZEJDŹ DO KASY →</button>
-  </div>
-</div>
 
 <!-- SIZE GUIDE MODAL -->
 <div class="modal-overlay" id="sizeModal">
@@ -912,12 +825,6 @@ const full = [...annItems,...annItems].map(t =>
 ).join('');
 track.innerHTML = full;
 
-// ─── CART STATE ───
-const FREE_SHIP = 300;
-let cart = JSON.parse(localStorage.getItem('rnr-cart-v3') || '[]');
-
-function saveCart(){ localStorage.setItem('rnr-cart-v3', JSON.stringify(cart)); }
-
 // ─── WARIANTY / ROZMIAR (unisex) ───
 // W Shopify #ProductVariants zawiera {{ product.variants | json }} zamiast danych demo z HTML
 const productVariants = JSON.parse(document.getElementById('ProductVariants').textContent);
@@ -942,92 +849,19 @@ function changeBuyQty(delta){
   document.getElementById('buyQty').textContent = buyQty;
 }
 
+// Ten plik jest hostowany poza Shopify (GitHub Pages), więc "dodaj do koszyka" nie może
+// wołać /cart/add.js przez fetch (CORS między domenami). Zamiast tego używamy prostego,
+// oficjalnie wspieranego przez Shopify przekierowania GET na /cart/add — działa bez
+// żadnej konfiguracji API, dodaje realny produkt do prawdziwego koszyka klienta i ląduje
+// od razu na stronie koszyka na roadandrolls.com.
+const SHOPIFY_STORE_URL = 'https://roadandrolls.com';
+
 function addToCart(){
-  // W Shopify: fetch('/cart/add.js', { method:'POST', body: JSON.stringify({ id: selectedVariant.id, quantity: buyQty }) })
-  // a koszyk odświeżany danymi z /cart.js zamiast localStorage
-  const existing = cart.find(i => i.pid === 'pkg' && i.variantId === selectedVariant.id);
-  if(existing){ existing.qty += buyQty; }
-  else {
-    cart.push({
-      pid: 'pkg',
-      name: 'Pakiet 001',
-      variantId: selectedVariant.id,
-      size: selectedVariant.size,
-      price: selectedVariant.price,
-      qty: buyQty
-    });
-  }
-  saveCart();
-  renderCart();
-  toggleCart(true);
-  showToast(`✓ Pakiet 001 (${selectedVariant.size}) dodany`);
-}
-
-function renderCart(){
-  const total = cart.reduce((s,i) => s+i.price*i.qty, 0);
-  const count = cart.reduce((s,i) => s+i.qty, 0);
-  const pct = Math.min(100, (total/FREE_SHIP)*100);
-  const charity = cart.reduce((s,i) => s + 30*i.qty, 0);
-
-  const cartCountEl = document.getElementById('cartCount');
-  cartCountEl.textContent = count;
-  cartCountEl.dataset.zero = count === 0 ? 'true' : 'false';
-  document.getElementById('shipFill').style.width = pct+'%';
-  const left = FREE_SHIP - total;
-  document.getElementById('shipText').textContent =
-    left > 0 ? `Do darmowej dostawy brakuje Ci ${left} zł` : '🎉 Masz darmową dostawę!';
-
-  const body = document.getElementById('cartBody');
-  const foot = document.getElementById('cartFoot');
-
-  if(!cart.length){
-    body.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🥐</div><p>Koszyk pusty jak żołądek przed biegiem.<br>Dodaj pakiet challange i zaczynamy!</p></div>`;
-    foot.style.display = 'none';
-    return;
-  }
-
-  foot.style.display = 'block';
-  document.getElementById('cartTotal').textContent = total+' zł';
-  document.getElementById('charityAmt').textContent = charity+' zł';
-
-  body.innerHTML = cart.map((item,idx) => `
-    <div class="cart-item">
-      <div class="ci-img">👕</div>
-      <div class="ci-info">
-        <div class="ci-name">${item.name}</div>
-        <div class="ci-meta">Unisex · ${item.size}</div>
-        <div class="ci-controls">
-          <div class="ci-qty">
-            <button onclick="changeQty(${idx},-1)">−</button>
-            <span>${item.qty}</span>
-            <button onclick="changeQty(${idx},1)">+</button>
-          </div>
-          <div class="ci-price">${item.price * item.qty} zł</div>
-          <button class="ci-remove" onclick="removeItem(${idx})">usuń</button>
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function changeQty(idx, delta){
-  cart[idx].qty += delta;
-  if(cart[idx].qty <= 0) cart.splice(idx,1);
-  saveCart(); renderCart();
-}
-
-function removeItem(idx){
-  cart.splice(idx,1);
-  saveCart(); renderCart();
-}
-
-function toggleCart(forceOpen){
-  const o = document.getElementById('cartOverlay');
-  const d = document.getElementById('cartDrawer');
-  const isOpen = d.classList.contains('open');
-  const open = forceOpen === true ? true : !isOpen;
-  d.classList.toggle('open', open);
-  o.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
+  const btn = document.querySelector('.btn-buy');
+  if(btn){ btn.disabled = true; }
+  showToast(`✓ Pakiet 001 (${selectedVariant.size}) — przechodzę do koszyka…`);
+  const url = `${SHOPIFY_STORE_URL}/cart/add?id=${selectedVariant.id}&quantity=${buyQty}`;
+  window.location.href = url;
 }
 
 // ─── PHOTO GALLERY ───
@@ -1143,7 +977,6 @@ updateNavOnScroll();
 
 // ─── INIT ───
 renderSizeGrid();
-renderCart();
 renderFooterPolicies();
 renderTrackerPreview();
 </script>
