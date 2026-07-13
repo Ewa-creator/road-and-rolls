@@ -556,10 +556,10 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 
 <!-- HERO -->
 <section class="hero">
-  <!-- zastąp src swoim filmem: <video class="hero-video" autoplay muted loop playsinline src="twoj-film.mp4"></video> -->
-  <div class="hero-video-placeholder">
-    <span class="hero-video-placeholder-text">TWÓJ FILMIK MARKI TUTAJ</span>
-  </div>
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="video/hero-mobile.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="video/hero-desktop.mp4" type="video/mp4">
+  </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Zacznij biegać z Road &amp; Rolls</h1>
