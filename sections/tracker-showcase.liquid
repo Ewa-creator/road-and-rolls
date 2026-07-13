@@ -1,0 +1,74 @@
+<section class="tracker-showcase reveal" id="tracker">
+  <div class="tracker-showcase-grid">
+    <div class="tracker-showcase-info">
+      <p class="tracker-showcase-eyebrow">{{ section.settings.eyebrow | default: 'TWÓJ TRACKER · 100% ONLINE' }}</p>
+      <h2 class="tracker-showcase-title">
+        {{ section.settings.heading | default: 'Klikasz kółko' }}<br>
+        <em>{{ section.settings.heading_em | default: 'w interaktywnym trackerze' }}</em>
+      </h2>
+      <p class="tracker-showcase-desc">{{ section.settings.description | default: 'Twój postęp w wyzwaniu żyje w przeglądarce — bez pobierania aplikacji, bez zakładania konta. Wpisujesz imię, nazwę na Instagramie i klikasz kółko po każdym biegu, a tracker sam pilnuje Twojego challange\'u.' }}</p>
+
+      {% if section.blocks.size > 0 %}
+        <ul class="product-features">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature' %}
+              <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <a class="tracker-cta" href="{{ section.settings.cta_url | default: '#kup' }}">
+        {{ section.settings.cta_label | default: 'KUPUJĘ!' }}
+      </a>
+    </div>
+
+    <div class="tracker-preview">
+      <div class="tp-top">
+        <span class="tp-brand">ROAD & ROLLS™ · CHALLANGE</span>
+        <span class="tp-hashtag">#biegampobulki</span>
+      </div>
+      <div class="tp-circles" id="trackerPreviewCircles"><!-- generowane przez JS --></div>
+      <div class="tp-count-row">
+        <span class="tp-count" id="trackerPreviewCount">0</span>
+        <span class="tp-count-label">/ 30 BIEGÓW</span>
+      </div>
+      <div class="tp-progress"><div class="tp-progress-fill" id="trackerPreviewFill" style="width:0%"></div></div>
+      <p class="tp-demo-note">👆 Kliknij, żeby zobaczyć jak to działa — to tylko podgląd, prawdziwy postęp zapisujesz na swoim trackerze.</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Podgląd trackera",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Tekst nad nagłówkiem", "default": "TWÓJ TRACKER · 100% ONLINE" },
+    { "type": "text", "id": "heading", "label": "Nagłówek — linia 1", "default": "Klikasz kółko" },
+    { "type": "text", "id": "heading_em", "label": "Nagłówek — kursywa", "default": "w interaktywnym trackerze" },
+    { "type": "textarea", "id": "description", "label": "Opis", "default": "Twój postęp w wyzwaniu żyje w przeglądarce — bez pobierania aplikacji, bez zakładania konta. Wpisujesz imię, nazwę na Instagramie i klikasz kółko po każdym biegu, a tracker sam pilnuje Twojego challange'u." },
+    { "type": "text", "id": "cta_label", "label": "Tekst przycisku", "default": "KUPUJĘ!" },
+    { "type": "url", "id": "cta_url", "label": "Link przycisku (puste = sekcja produktu)" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Punkt opisu",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Tekst", "default": "Nowy punkt" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Podgląd trackera",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "30 biegów, zero limitu czasu — biegniesz w swoim rytmie" } },
+        { "type": "feature", "settings": { "text": "Klikasz kółko po każdym biegu, postęp zapisuje się sam" } },
+        { "type": "feature", "settings": { "text": "Bieg 5, 15 i 30 = motywacyjny boost (wstawiasz storkę na Instagrama, a my repostujemy)" } },
+        { "type": "feature", "settings": { "text": "Po 30/30 zostajesz oficjalnym Ambasadorem Road & Rolls" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,96 @@
+<section class="hero">
+  {% if section.settings.hero_video != blank %}
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="{{ section.settings.hero_video }}" type="video/mp4">
+    </video>
+  {% elsif section.settings.hero_image %}
+    <img class="hero-video"
+      src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+      alt="{{ section.settings.hero_image.alt | default: 'Road & Rolls' }}"
+      loading="eager">
+  {% else %}
+    <div class="hero-video-placeholder">
+      <span class="hero-video-placeholder-text">DODAJ WIDEO LUB ZDJĘCIE W EDYTORZE MOTYWU</span>
+    </div>
+  {% endif %}
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">{{ section.settings.heading | default: 'Zacznij biegać z Road & Rolls' }}</h1>
+    <a href="{{ section.settings.cta_url | default: '#kup' }}" class="hero-cta">
+      {{ section.settings.cta_label | default: 'DROP 001' }}
+    </a>
+  </div>
+</section>
+
+<!-- HERO PKG STRIP -->
+<div class="hero-pkg-strip">
+  {% for block in section.blocks %}
+    {% if block.type == 'checklist_item' %}
+      <div class="hero-pkg-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_video",
+      "label": "URL wideo (MP4)",
+      "info": "Wgraj plik MP4 do Plików motywu i wklej URL tutaj"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Zdjęcie hero (fallback gdy brak wideo)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Nagłówek",
+      "default": "Zacznij biegać z Road & Rolls"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Tekst przycisku",
+      "default": "DROP 001"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link przycisku (puste = sekcja produktu)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "checklist_item",
+      "name": "Ptaszek — punkt",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tekst",
+          "default": "NOWY PUNKT"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "checklist_item", "settings": { "text": "KOSZULKA RUN, EAT & REPEAT" } },
+        { "type": "checklist_item", "settings": { "text": "INTERAKTYWNY TRACKER WYZWANIA ONLINE" } },
+        { "type": "checklist_item", "settings": { "text": "30 DNI CHALLANGE \"BIEGAM PO BUŁKI\"" } },
+        { "type": "checklist_item", "settings": { "text": "1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE" } },
+        { "type": "checklist_item", "settings": { "text": "AMBASADOR ROAD & ROLLS PO UKOŃCZENIU CHALLANGE" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

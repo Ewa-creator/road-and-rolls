@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "pkg-1": { "type": "checklist_item", "settings": { "text": "KOSZULKA RUN, EAT & REPEAT" } },
+        "pkg-2": { "type": "checklist_item", "settings": { "text": "INTERAKTYWNY TRACKER WYZWANIA ONLINE" } },
+        "pkg-3": { "type": "checklist_item", "settings": { "text": "30 DNI CHALLANGE \"BIEGAM PO BUŁKI\"" } },
+        "pkg-4": { "type": "checklist_item", "settings": { "text": "1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE" } },
+        "pkg-5": { "type": "checklist_item", "settings": { "text": "AMBASADOR ROAD & ROLLS PO UKOŃCZENIU CHALLANGE" } }
+      },
+      "blocks_order": ["pkg-1","pkg-2","pkg-3","pkg-4","pkg-5"],
+      "settings": {
+        "heading": "Zacznij biegać z Road & Rolls",
+        "cta_label": "DROP 001"
+      }
+    },
+    "product-section": {
+      "type": "product-section",
+      "blocks": {
+        "feat-1": { "type": "feature", "settings": { "text": "Prawdziwy sens biegania w jednym nadruku" } },
+        "feat-2": { "type": "feature", "settings": { "text": "Idealnie skrojona — nic nie musisz przycinać" } },
+        "feat-3": { "type": "feature", "settings": { "text": "100% bawełna organiczna" } },
+        "feat-4": { "type": "feature", "settings": { "text": "Niebieski izotonik nie zostawia śladu" } },
+        "feat-5": { "type": "feature", "settings": { "text": "Zero wkurzających metek do odcinania" } },
+        "feat-6": { "type": "feature", "settings": { "text": "Limitowany Drop 001" } },
+        "feat-7": { "type": "feature", "settings": { "text": "Koszulka = dostęp do wyzwania „Biegam po bułki” (tracker + community)" } }
+      },
+      "blocks_order": ["feat-1","feat-2","feat-3","feat-4","feat-5","feat-6","feat-7"],
+      "settings": {
+        "product_handle": "pakiet-biegam-po-bulki",
+        "eyebrow": "UNISEX · LIMITOWANA EDYCJA",
+        "size_label": "ROZMIAR",
+        "buy_btn": "DODAJ DO KOSZYKA",
+        "buy_note": "Dostawa 14 zł · gratis od 300 zł · 30 zł na cele charytatywne po ukończeniu wyzwania. Limitowany drop — wysyłka w 2–3 dni robocze."
+      }
+    },
+    "tracker-showcase": {
+      "type": "tracker-showcase",
+      "blocks": {
+        "tp-1": { "type": "feature", "settings": { "text": "30 biegów, zero limitu czasu — biegniesz w swoim rytmie" } },
+        "tp-2": { "type": "feature", "settings": { "text": "Klikasz kółko po każdym biegu, postęp zapisuje się sam" } },
+        "tp-3": { "type": "feature", "settings": { "text": "Bieg 5, 15 i 30 = motywacyjny boost (wstawiasz storkę na Instagrama, a my repostujemy)" } },
+        "tp-4": { "type": "feature", "settings": { "text": "Po 30/30 zostajesz oficjalnym Ambasadorem Road & Rolls" } }
+      },
+      "blocks_order": ["tp-1","tp-2","tp-3","tp-4"],
+      "settings": {}
+    },
+    "about-section": {
+      "type": "about-section",
+      "settings": {}
+    },
+    "newsletter-footer": {
+      "type": "newsletter-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "product-section",
+    "tracker-showcase",
+    "about-section",
+    "newsletter-footer"
+  ]
+}

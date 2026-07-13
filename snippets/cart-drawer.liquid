@@ -1,0 +1,28 @@
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <span class="cart-head-title">Koszyk 🛒</span>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-ship">
+    <p class="ship-text" id="shipText">Do darmowej dostawy brakuje Ci 200 zł</p>
+    <div class="ship-bar"><div class="ship-fill" id="shipFill" style="width:0%"></div></div>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🥐</div>
+      <p>Koszyk pusty jak żołądek przed biegiem.<br>Dodaj pakiet challange i zaczynamy!</p>
+    </div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-charity">
+      <span class="cart-charity-label">💚 Na cele charytatywne (po wyzwaniu)</span>
+      <span class="cart-charity-val" id="charityAmt">0 zł</span>
+    </div>
+    <div class="cart-total">
+      <span class="cart-total-label">RAZEM</span>
+      <span class="cart-total-val" id="cartTotal">0 zł</span>
+    </div>
+    <a href="/checkout" class="btn-checkout">PRZEJDŹ DO KASY →</a>
+  </div>
+</div>

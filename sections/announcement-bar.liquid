@@ -1,0 +1,53 @@
+<div class="ann-bar">
+  <div class="ann-track">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}{% if block.type == 'item' %}<span class="ann-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>{% if block.settings.show_dot %}<span class="ann-item ann-dot">·</span>{% endif %}{% endif %}{% endfor %}
+      {% for block in section.blocks %}{% if block.type == 'item' %}<span class="ann-item">{{ block.settings.text }}</span>{% if block.settings.show_dot %}<span class="ann-item ann-dot">·</span>{% endif %}{% endif %}{% endfor %}
+    {% else %}
+      <span class="ann-item">BIEGAM PO BUŁKI</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">RUN. EAT. REPEAT.</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">DROP 001 · KOLEKCJA LIMITOWANA</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">DARMOWA DOSTAWA OD 300 ZŁ</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">WYSYŁKA W 2–3 DNI ROBOCZE</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">@roadandrolls</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">BIEGAM PO BUŁKI</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">RUN. EAT. REPEAT.</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">DROP 001 · KOLEKCJA LIMITOWANA</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">DARMOWA DOSTAWA OD 300 ZŁ</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">WYSYŁKA W 2–3 DNI ROBOCZE</span><span class="ann-item ann-dot">·</span>
+      <span class="ann-item">@roadandrolls</span><span class="ann-item ann-dot">·</span>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pasek ogłoszeń",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Tekst",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Treść", "default": "NOWY TEKST" },
+        { "type": "checkbox", "id": "show_dot", "label": "Separator · po tekście", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pasek ogłoszeń",
+      "blocks": [
+        { "type": "item", "settings": { "text": "BIEGAM PO BUŁKI", "show_dot": true } },
+        { "type": "item", "settings": { "text": "RUN. EAT. REPEAT.", "show_dot": true } },
+        { "type": "item", "settings": { "text": "DROP 001 · KOLEKCJA LIMITOWANA", "show_dot": true } },
+        { "type": "item", "settings": { "text": "DARMOWA DOSTAWA OD 300 ZŁ", "show_dot": true } },
+        { "type": "item", "settings": { "text": "1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE", "show_dot": true } },
+        { "type": "item", "settings": { "text": "WYSYŁKA W 2–3 DNI ROBOCZE", "show_dot": true } },
+        { "type": "item", "settings": { "text": "@roadandrolls", "show_dot": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

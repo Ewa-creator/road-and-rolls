@@ -1,0 +1,23 @@
+<section class="notfound">
+  <p class="notfound-eyebrow">{{ section.settings.eyebrow | default: 'BŁĄD 404' }}</p>
+  <h1 class="notfound-title">
+    {{ section.settings.heading | default: 'Zgubiłeś trasę.' }}<br>
+    <em>{{ section.settings.heading_em | default: 'Nie tę bułkę.' }}</em>
+  </h1>
+  <p class="notfound-desc">{{ section.settings.description | default: 'Tej strony nie ma — może zniknęła, może źle wpisałeś adres. Wracaj na główną i biegnij dalej.' }}</p>
+  <a href="{{ routes.root_url }}" class="notfound-cta">{{ section.settings.cta_label | default: 'WRÓĆ NA STRONĘ GŁÓWNĄ →' }}</a>
+</section>
+
+{% schema %}
+{
+  "name": "Treść 404",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Tekst nad nagłówkiem", "default": "BŁĄD 404" },
+    { "type": "text", "id": "heading", "label": "Nagłówek — linia 1", "default": "Zgubiłeś trasę." },
+    { "type": "text", "id": "heading_em", "label": "Nagłówek — kursywa", "default": "Nie tę bułkę." },
+    { "type": "textarea", "id": "description", "label": "Opis", "default": "Tej strony nie ma — może zniknęła, może źle wpisałeś adres. Wracaj na główną i biegnij dalej." },
+    { "type": "text", "id": "cta_label", "label": "Tekst przycisku", "default": "WRÓĆ NA STRONĘ GŁÓWNĄ →" }
+  ],
+  "presets": [{ "name": "Treść 404" }]
+}
+{% endschema %}

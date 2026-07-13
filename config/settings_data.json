@@ -1,0 +1,25 @@
+{
+  "current": {
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "block-1": { "type": "item", "settings": { "text": "BIEGAM PO BUŁKI", "show_dot": true } },
+          "block-2": { "type": "item", "settings": { "text": "RUN. EAT. REPEAT.", "show_dot": true } },
+          "block-3": { "type": "item", "settings": { "text": "DROP 001 · KOLEKCJA LIMITOWANA", "show_dot": true } },
+          "block-4": { "type": "item", "settings": { "text": "DARMOWA DOSTAWA OD 300 ZŁ", "show_dot": true } },
+          "block-5": { "type": "item", "settings": { "text": "1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE", "show_dot": true } },
+          "block-6": { "type": "item", "settings": { "text": "WYSYŁKA W 2–3 DNI ROBOCZE", "show_dot": true } },
+          "block-7": { "type": "item", "settings": { "text": "@roadandrolls", "show_dot": true } }
+        },
+        "blocks_order": ["block-1","block-2","block-3","block-4","block-5","block-6","block-7"]
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "contact_email": "kontakt@roadandrolls.pl"
+        }
+      }
+    }
+  }
+}

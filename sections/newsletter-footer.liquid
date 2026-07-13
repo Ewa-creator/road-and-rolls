@@ -1,0 +1,146 @@
+<!-- NEWSLETTER -->
+<div class="footer-newsletter">
+  <div>
+    <h3 class="fn-title">
+      {{ section.settings.nl_title | default: 'Dołącz do newslettera i nie' }}
+      <em>{{ section.settings.nl_title_em | default: 'przegap dropów!' }}</em>
+    </h3>
+    <p class="fn-sub">{{ section.settings.nl_subtitle | default: 'Bądź pierwszy gdy Drop 002 wejdzie do sprzedaży. Zero spamu, tylko to co ważne.' }}</p>
+  </div>
+  <form class="fn-form" onsubmit="subNewsletter(event)">
+    <input class="fn-input" type="email" placeholder="{{ section.settings.nl_placeholder | default: 'Twój adres e-mail' }}" required>
+    <button class="fn-btn" type="submit">{{ section.settings.nl_btn | default: 'ZAPISUJĘ SIĘ →' }}</button>
+  </form>
+</div>
+
+<!-- FOOTER MAIN -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand-name">Road <span>&</span> Rolls</div>
+      <p class="footer-brand-desc">{{ section.settings.brand_desc | default: 'Koszulka, wyzwanie i misja w jednym. Dla tych, co lubią się ruszyć — nieważne czy to 500m czy maraton. Każdy bieg to 1 zł na cele charytatywne. #biegampobulki' }}</p>
+      <div class="footer-socials">
+        {% if section.settings.instagram_url != blank %}
+          <a href="{{ section.settings.instagram_url }}" class="footer-social" target="_blank" rel="noopener">📷</a>
+        {% else %}
+          <a href="#" class="footer-social">📷</a>
+        {% endif %}
+        {% if section.settings.tiktok_url != blank %}
+          <a href="{{ section.settings.tiktok_url }}" class="footer-social" target="_blank" rel="noopener">🎵</a>
+        {% else %}
+          <a href="#" class="footer-social">🎵</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Kolumna 1 — SKLEP -->
+    <div class="footer-col">
+      <div class="footer-col-title">{{ section.settings.col1_title | default: 'SKLEP' }}</div>
+      {% for block in section.blocks %}
+        {% if block.type == 'link_col1' %}
+          <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Kolumna 2 — INFORMACJE: polityki zaciągane automatycznie z Ustawienia → Polityki -->
+    <div class="footer-col">
+      <div class="footer-col-title">{{ section.settings.col2_title | default: 'INFORMACJE' }}</div>
+      {% for policy in shop.policies %}
+        <a href="{{ policy.url }}">{{ policy.title }}</a>
+      {% endfor %}
+      {% for block in section.blocks %}
+        {% if block.type == 'link_col2' %}
+          <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Kolumna 3 — KONTAKT -->
+    <div class="footer-col">
+      <div class="footer-col-title">{{ section.settings.col3_title | default: 'KONTAKT' }}</div>
+      {% for block in section.blocks %}
+        {% if block.type == 'link_col3' %}
+          <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {% endif %}
+      {% endfor %}
+      {% if section.settings.instagram_url != blank %}
+        <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener">@roadandrolls</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">{{ section.settings.copyright | default: '© 2025 ROAD & ROLLS™ · PO PROSTU BIEGNIJ' }}</span>
+    <div class="footer-payments">
+      <span class="pay-chip">BLIK</span>
+      <span class="pay-chip">VISA</span>
+      <span class="pay-chip">MASTERCARD</span>
+      <span class="pay-chip">PAYPAL</span>
+      <span class="pay-chip">APPLE PAY</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Newsletter i stopka",
+  "settings": [
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "nl_title", "label": "Tytuł newslettera", "default": "Dołącz do newslettera i nie" },
+    { "type": "text", "id": "nl_title_em", "label": "Tytuł — kursywa", "default": "przegap dropów!" },
+    { "type": "text", "id": "nl_subtitle", "label": "Podtytuł", "default": "Bądź pierwszy gdy Drop 002 wejdzie do sprzedaży. Zero spamu, tylko to co ważne." },
+    { "type": "text", "id": "nl_placeholder", "label": "Placeholder pola e-mail", "default": "Twój adres e-mail" },
+    { "type": "text", "id": "nl_btn", "label": "Tekst przycisku", "default": "ZAPISUJĘ SIĘ →" },
+    { "type": "header", "content": "Stopka — marka" },
+    { "type": "textarea", "id": "brand_desc", "label": "Opis marki", "default": "Koszulka, wyzwanie i misja w jednym. Dla tych, co lubią się ruszyć — nieważne czy to 500m czy maraton. #biegampobulki" },
+    { "type": "url", "id": "instagram_url", "label": "Link Instagram", "info": "Używany w ikonce social i w kolumnie Kontakt" },
+    { "type": "url", "id": "tiktok_url", "label": "Link TikTok" },
+    { "type": "header", "content": "Stopka — kolumny" },
+    { "type": "text", "id": "col1_title", "label": "Kolumna 1 — tytuł", "default": "SKLEP" },
+    { "type": "text", "id": "col2_title", "label": "Kolumna 2 — tytuł", "default": "INFORMACJE" },
+    { "type": "paragraph", "content": "Polityki (regulamin, zwroty, dostawa, prywatność) pojawiają się tu automatycznie na podstawie Ustawienia → Polityki — nie trzeba ich dodawać ręcznie." },
+    { "type": "text", "id": "col3_title", "label": "Kolumna 3 — tytuł", "default": "KONTAKT" },
+    { "type": "header", "content": "Stopka — dół" },
+    { "type": "text", "id": "copyright", "label": "Tekst copyright", "default": "© 2025 ROAD & ROLLS™ · PO PROSTU BIEGNIJ" }
+  ],
+  "blocks": [
+    {
+      "type": "link_col1",
+      "name": "Link — Sklep",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tekst linku", "default": "Link" },
+        { "type": "url", "id": "url", "label": "URL" }
+      ]
+    },
+    {
+      "type": "link_col2",
+      "name": "Link — Informacje (dodatkowy, np. FAQ)",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tekst linku", "default": "Link" },
+        { "type": "url", "id": "url", "label": "URL" }
+      ]
+    },
+    {
+      "type": "link_col3",
+      "name": "Link — Kontakt",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tekst linku", "default": "Link" },
+        { "type": "url", "id": "url", "label": "URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter i stopka",
+      "blocks": [
+        { "type": "link_col1", "settings": { "label": "Pakiet Challange — 169 zł", "url": "#kup" } },
+        { "type": "link_col1", "settings": { "label": "Jak to działa", "url": "#tracker" } },
+        { "type": "link_col1", "settings": { "label": "Drop 002 — wkrótce", "url": "#" } },
+        { "type": "link_col2", "settings": { "label": "FAQ", "url": "/pages/faq" } },
+        { "type": "link_col3", "settings": { "label": "kontakt@roadandrolls.pl", "url": "mailto:kontakt@roadandrolls.pl" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

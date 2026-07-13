@@ -1,0 +1,51 @@
+<section class="about reveal" id="o-nas">
+  <div class="about-left">
+    <p class="about-eyebrow">{{ section.settings.eyebrow | default: 'O NAS' }}</p>
+    <h2 class="about-title">
+      {{ section.settings.title_normal | default: '5km po bułkę.' }}<br>
+      {{ section.settings.title_line2 | default: '21km po' }} <em>{{ section.settings.title_em | default: 'życiówkę.' }}</em>
+    </h2>
+    {% if section.settings.text_1 != blank %}
+      <p class="about-text">{{ section.settings.text_1 }}</p>
+    {% endif %}
+    {% if section.settings.text_2 != blank %}
+      <p class="about-text">{{ section.settings.text_2 }}</p>
+    {% endif %}
+    {% if section.settings.text_3 != blank %}
+      <p class="about-text">{{ section.settings.text_3 }}</p>
+    {% endif %}
+    <a class="about-link" href="{{ section.settings.link_url | default: '#kup' }}">{{ section.settings.link_label | default: 'Kup pakiet i dołącz →' }}</a>
+  </div>
+  <div class="about-right">
+    {% if section.settings.about_image %}
+      <img
+        src="{{ section.settings.about_image | image_url: width: 800 }}"
+        alt="{{ section.settings.about_image.alt | default: 'Road & Rolls' }}"
+        loading="lazy">
+    {% else %}
+      <div class="about-placeholder">
+        <div class="about-placeholder-icon">📸</div>
+        <div class="about-placeholder-text">DODAJ ZDJĘCIE W EDYTORZE MOTYWU</div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "O nas",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Tekst nad nagłówkiem", "default": "O NAS" },
+    { "type": "text", "id": "title_normal", "label": "Nagłówek — linia 1", "default": "5km po bułkę." },
+    { "type": "text", "id": "title_line2", "label": "Nagłówek — linia 2 (przed kursywą)", "default": "21km po" },
+    { "type": "text", "id": "title_em", "label": "Nagłówek — kursywa", "default": "życiówkę." },
+    { "type": "textarea", "id": "text_1", "label": "Akapit 1", "default": "Road & Rolls powstało dla zajawkowiczów. Dla tych, którzy lubią się ruszyć, rzucić sobie wyzwanie i po prostu dobrze się bawić bieganiem. Nieważne czy robisz 5 km po bułki rano, czy stajesz na starcie swojego pierwszego półmaratonu." },
+    { "type": "textarea", "id": "text_2", "label": "Akapit 2", "default": "To więcej niż koszulka i wyzwanie. To sposób, żeby robić coś dobrego i przy okazji sprawić, że bieganie stanie się najlepszą częścią dnia." },
+    { "type": "textarea", "id": "text_3", "label": "Akapit 3", "default": "Na początku miała być tylko koszulka. Prosta rzecz, która przy okazji zbiera pieniądze na cele charytatywne. Szybko jednak poczuliśmy, że to za mało i rozwinęliśmy to w coś większego." },
+    { "type": "text", "id": "link_label", "label": "Tekst linku", "default": "Kup pakiet i dołącz →" },
+    { "type": "url", "id": "link_url", "label": "URL linku" },
+    { "type": "image_picker", "id": "about_image", "label": "Zdjęcie" }
+  ],
+  "presets": [{ "name": "O nas" }]
+}
+{% endschema %}

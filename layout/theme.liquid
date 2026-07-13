@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}{% unless page_title == shop.name %} — {{ shop.name }}{% endunless %}</title>
+  <meta name="description" content="{{ page_description | default: shop.description | escape }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+
+{% section 'announcement-bar' %}
+{% section 'header' %}
+
+<main id="MainContent">
+  {{ content_for_layout }}
+</main>
+
+{% render 'cart-drawer' %}
+{% render 'size-guide' %}
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+  window.Shopify = window.Shopify || {};
+  window.Shopify.currency = {{ shop.currency | json }};
+</script>
+{{ 'theme.js' | asset_url | script_tag }}
+
+</body>
+</html>

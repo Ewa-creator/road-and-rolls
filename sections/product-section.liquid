@@ -1,0 +1,124 @@
+{% assign main_product = all_products[section.settings.product_handle] %}
+{% if main_product %}<script>window.rnrProduct = {{ main_product | json }};</script>{% endif %}
+
+<section class="product-section" id="kup">
+  <div class="product-visuals">
+
+    {% comment %} GALERIA ZDJĘĆ {% endcomment %}
+    <div class="gallery-main" id="galleryMain">
+      {% if main_product and main_product.images.size > 0 %}
+        {% for image in main_product.images limit: 6 %}
+          <div class="gallery-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
+            <img
+              src="{{ image | image_url: width: 900 }}"
+              alt="{{ image.alt | default: main_product.title }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+              width="{{ image.width }}" height="{{ image.height }}">
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="gallery-slide active">
+          <div class="gallery-slide-placeholder">📸<br>DODAJ ZDJĘCIA PRODUKTU W SHOPIFY ADMIN</div>
+        </div>
+      {% endif %}
+      {% if main_product and main_product.images.size > 1 %}
+        <button class="gallery-arrow gallery-arrow-prev" onclick="galleryStep(-1)" aria-label="Poprzednie zdjęcie">←</button>
+        <button class="gallery-arrow gallery-arrow-next" onclick="galleryStep(1)" aria-label="Następne zdjęcie">→</button>
+      {% endif %}
+    </div>
+    {% if main_product and main_product.images.size > 1 %}
+      <div class="gallery-counter" id="galleryCounter">1 / {{ main_product.images.size }}</div>
+    {% endif %}
+
+  </div>
+
+  <div class="product-buy">
+    {% if section.settings.eyebrow != blank %}
+      <p class="product-buy-eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+
+    {% if main_product %}
+      <div class="buy-price-row">
+        <div class="buy-price">{{ main_product.price | money_without_trailing_zeros }}</div>
+      </div>
+
+      <p class="size-label">
+        {{ section.settings.size_label | default: 'ROZMIAR' }}
+        <span class="size-guide-link" onclick="openSizeGuide()">{{ section.settings.size_guide_link | default: 'tabela rozmiarów →' }}</span>
+      </p>
+      <div class="size-grid" id="sizeGrid"></div>
+
+      {% if section.blocks.size > 0 %}
+        <ul class="product-features">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature' %}
+              <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="buy-row">
+        <div class="qty-stepper">
+          <button type="button" onclick="changeBuyQty(-1)" aria-label="Zmniejsz ilość">−</button>
+          <span id="buyQty">1</span>
+          <button type="button" onclick="changeBuyQty(1)" aria-label="Zwiększ ilość">+</button>
+        </div>
+        <button class="btn-buy" onclick="addToCart()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+          {{ section.settings.buy_btn | default: 'DODAJ DO KOSZYKA' }}
+        </button>
+      </div>
+
+      <div class="pay-methods">
+        <span class="pay-chip">BLIK</span>
+        <span class="pay-chip">PRZELEWY24</span>
+        <span class="pay-chip">KARTA</span>
+        <span class="pay-chip">APPLE PAY</span>
+      </div>
+
+      <p class="buy-note">{{ section.settings.buy_note | default: 'Dostawa 14 zł · gratis od 300 zł · 30 zł na cele charytatywne po ukończeniu wyzwania. Limitowany drop — wysyłka w 2–3 dni robocze.' }}</p>
+    {% else %}
+      <div class="no-product-msg">⚙ Wpisz handle produktu w ustawieniach sekcji.</div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sekcja produktu",
+  "settings": [
+    { "type": "text", "id": "product_handle", "label": "Handle produktu", "info": "Znajdziesz go w URL produktu w panelu admina", "default": "pakiet-biegam-po-bulki" },
+    { "type": "text", "id": "eyebrow", "label": "Tekst nad ceną", "default": "UNISEX · LIMITOWANA EDYCJA" },
+    { "type": "header", "content": "Wybór rozmiaru" },
+    { "type": "text", "id": "size_label", "label": "Etykieta wyboru rozmiaru", "default": "ROZMIAR" },
+    { "type": "text", "id": "size_guide_link", "label": "Link do tabeli rozmiarów", "default": "tabela rozmiarów →" },
+    { "type": "header", "content": "Cena i zakup" },
+    { "type": "text", "id": "buy_btn", "label": "Tekst przycisku kup", "default": "DODAJ DO KOSZYKA" },
+    { "type": "textarea", "id": "buy_note", "label": "Nota pod przyciskiem", "default": "Dostawa 14 zł · gratis od 300 zł · 30 zł na cele charytatywne po ukończeniu wyzwania. Limitowany drop — wysyłka w 2–3 dni robocze." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Punkt opisu",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Tekst", "default": "Nowy punkt" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sekcja produktu",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Prawdziwy sens biegania w jednym nadruku" } },
+        { "type": "feature", "settings": { "text": "Idealnie skrojona — nic nie musisz przycinać" } },
+        { "type": "feature", "settings": { "text": "100% bawełna organiczna" } },
+        { "type": "feature", "settings": { "text": "Niebieski izotonik nie zostawia śladu" } },
+        { "type": "feature", "settings": { "text": "Zero wkurzających metek do odcinania" } },
+        { "type": "feature", "settings": { "text": "Limitowany Drop 001" } },
+        { "type": "feature", "settings": { "text": "Koszulka = dostęp do wyzwania „Biegam po bułki” (tracker + community)" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
