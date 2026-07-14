@@ -98,12 +98,12 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 .nav.scrolled { border-bottom-color:var(--border); }
 .nav.scrolled::before { transform:translateY(0); }
 
-.nav-logo {
-  font-family:'Fraunces Logo','Fraunces',serif; font-weight:900; font-size:20px; letter-spacing:-.01em;
-  justify-self:start; color:#fff; transition:color .4s ease;
-}
-.nav.scrolled .nav-logo { color:var(--ink); }
-.nav-logo span { color:var(--cobalt); font-style:italic; }
+.nav-logo { justify-self:start; display:grid; align-items:center; }
+.nav-logo img { grid-area:1 / 1; height:24px; width:auto; display:block; transition:opacity .4s ease; }
+.nav-logo .logo-white { opacity:1; }
+.nav-logo .logo-dark { opacity:0; }
+.nav.scrolled .nav-logo .logo-white { opacity:0; }
+.nav.scrolled .nav-logo .logo-dark { opacity:1; }
 
 .nav-links { display:flex; align-items:center; gap:32px; justify-self:center; }
 .nav-link {
@@ -538,7 +538,10 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 
 <!-- NAV -->
 <nav class="nav" id="mainNav">
-  <a href="#" class="nav-logo">Road <span>&</span> Rolls</a>
+  <a href="#" class="nav-logo" aria-label="Road & Rolls">
+    <img class="logo-white" src="images/logo-white.png" alt="Road & Rolls">
+    <img class="logo-dark" src="images/logo-dark.png" alt="">
+  </a>
   <div class="nav-links">
     <a href="#" class="nav-link">Strona główna</a>
     <a href="#" class="nav-link">Kontakt</a>
