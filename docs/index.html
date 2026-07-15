@@ -860,15 +860,15 @@ function changeBuyQty(delta){
 // Ten plik jest hostowany poza Shopify (GitHub Pages), więc "dodaj do koszyka" nie może
 // wołać /cart/add.js przez fetch (CORS między domenami). Zamiast tego używamy prostego,
 // oficjalnie wspieranego przez Shopify przekierowania GET na /cart/add — działa bez
-// żadnej konfiguracji API, dodaje realny produkt do prawdziwego koszyka klienta i ląduje
-// od razu na stronie koszyka na roadandrolls.com.
+// żadnej konfiguracji API, dodaje realny produkt do prawdziwego koszyka klienta.
+// Parametr return_to=/checkout pomija stronę koszyka i ląduje od razu na kasie.
 const SHOPIFY_STORE_URL = 'https://roadandrolls.com';
 
 function addToCart(){
   const btn = document.querySelector('.btn-buy');
   if(btn){ btn.disabled = true; }
-  showToast(`✓ Pakiet 001 (${selectedVariant.size}) — przechodzę do koszyka…`);
-  const url = `${SHOPIFY_STORE_URL}/cart/add?id=${selectedVariant.id}&quantity=${buyQty}`;
+  showToast(`✓ Pakiet 001 (${selectedVariant.size}) — przechodzę do kasy…`);
+  const url = `${SHOPIFY_STORE_URL}/cart/add?id=${selectedVariant.id}&quantity=${buyQty}&return_to=/checkout`;
   window.location.href = url;
 }
 
