@@ -1,23 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
-        "blocks": {
-          "block-1": { "type": "item", "settings": { "text": "BIEGAM PO BUŁKI", "show_dot": true } },
-          "block-2": { "type": "item", "settings": { "text": "RUN. EAT. REPEAT.", "show_dot": true } },
-          "block-3": { "type": "item", "settings": { "text": "DROP 001 · KOLEKCJA LIMITOWANA", "show_dot": true } },
-          "block-4": { "type": "item", "settings": { "text": "DARMOWA DOSTAWA OD 300 ZŁ", "show_dot": true } },
-          "block-5": { "type": "item", "settings": { "text": "1 BIEG = 1 ZŁ NA CELE CHARYTATYWNE", "show_dot": true } },
-          "block-6": { "type": "item", "settings": { "text": "WYSYŁKA W 2–3 DNI ROBOCZE", "show_dot": true } },
-          "block-7": { "type": "item", "settings": { "text": "@roadandrolls", "show_dot": true } }
-        },
-        "blocks_order": ["block-1","block-2","block-3","block-4","block-5","block-6","block-7"]
+        "settings": {}
       },
       "header": {
         "type": "header",
         "settings": {
           "contact_email": "kontakt@roadandrolls.pl"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "2002083779152374139": {
+        "type": "shopify://apps/pickup-points-pro/blocks/app_embed/005581db-53ad-477a-b330-60f483c76b50",
+        "disabled": false,
+        "settings": {
+          "country_selector_text": "Kraj wysyłki",
+          "opening_button_text": "Wybierz punkt odbioru na mapie",
+          "additional_info_text": "Paczkomat InPost, ORLEN Paczka albo DPD — wybierz punkt najbliżej Ciebie. Najlepiej ten po drodze po bułki"
         }
       }
     }
