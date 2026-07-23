@@ -950,27 +950,28 @@ function changeBuyQty(delta){
 // ─── KOSZYK — WooCommerce Store API (shop.roadandrolls.com) ───
 // Store API to publiczne, "headless" API WooCommerce — zaprojektowane właśnie do tego,
 // żeby zewnętrzna strona (tu: GitHub Pages) mogła zarządzać koszykiem bez kluczy API.
-// Sesja koszyka jest identyfikowana przez nagłówki Nonce + Cart-Token (nie tylko ciasteczka),
-// co działa niezawodnie między subdomenami nawet gdy przeglądarka ogranicza cookies stron trzecich.
+// UWAGA: celowo NIE używamy nagłówka Cart-Token do identyfikacji sesji, mimo że Store API
+// go oferuje — gdy klient wysyła Cart-Token, WooCommerce traktuje go jako czysto "headless"
+// i NIE ustawia klasycznego ciasteczka sesji (wp_woocommerce_session_...), od którego zależy
+// tradycyjna, serwerowo renderowana strona kasy (/zamowienie/). Bez Cart-Token, a z samym
+// credentials:'include', WooCommerce ustawia to ciasteczko normalnie — a że roadandrolls.com
+// i shop.roadandrolls.com są subdomenami tej samej domeny, to "same-site" dla przeglądarki,
+// więc SameSite=Lax i tak pozwala na ten ruch w fetchu.
 const WC_API = 'https://shop.roadandrolls.com/wp-json/wc/store/v1';
 const WC_CHECKOUT_URL = 'https://shop.roadandrolls.com/zamowienie/';
 let wcNonce = localStorage.getItem('wc_nonce') || '';
-let wcCartToken = localStorage.getItem('wc_cart_token') || '';
 let currentCart = null;
 let addToCartInFlight = false;
 
 function wcHeaders(extra){
   const h = Object.assign({ 'Content-Type': 'application/json' }, extra || {});
   if (wcNonce) h['Nonce'] = wcNonce;
-  if (wcCartToken) h['Cart-Token'] = wcCartToken;
   return h;
 }
 
 function wcCaptureSession(res){
   const nonce = res.headers.get('Nonce');
-  const cartToken = res.headers.get('Cart-Token');
   if (nonce) { wcNonce = nonce; localStorage.setItem('wc_nonce', nonce); }
-  if (cartToken) { wcCartToken = cartToken; localStorage.setItem('wc_cart_token', cartToken); }
 }
 
 async function wcFetchCart(){
