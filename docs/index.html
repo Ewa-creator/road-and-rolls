@@ -95,7 +95,7 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   transition:transform .4s cubic-bezier(.65,0,.35,1);
   z-index:-1;
 }
-.nav.scrolled { border-bottom-color:var(--border); }
+.nav.scrolled { border-bottom-color:var(--border); box-shadow:0 2px 12px rgba(0,0,0,.06); }
 .nav.scrolled::before { transform:translateY(0); }
 
 .nav-logo { justify-self:start; display:grid; align-items:center; }
@@ -129,11 +129,14 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   min-height:400px;
   overflow:hidden;
   display:flex; align-items:flex-end;
+  background:var(--ink); /* ciemne tło zamiast białego — jeśli wideo z jakiegoś powodu nie
+    zdąży się wyrenderować (np. wolniejsze urządzenie), widać ciemną markę, nie biały ekran */
 }
 .hero-video {
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit:cover; object-position:center;
+  display:block;
 }
 .hero-video-placeholder {
   position:absolute; inset:0;
@@ -215,14 +218,8 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 }
 .tracker-showcase-title em { font-style:italic; color:var(--cobalt); }
 .tracker-showcase-desc { font-size:15px; line-height:1.7; color:var(--grey); margin-bottom:32px; max-width:440px; }
-.tracker-cta {
-  display:inline-flex; align-items:center; gap:10px;
-  background:var(--cobalt); color:#fff;
-  padding:16px 28px;
-  font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.04em;
-  border-radius:100px; transition:all .2s;
-}
-.tracker-cta:hover { background:var(--cobalt-dk); transform:translateY(-2px); }
+.tracker-cta { margin-top:8px; }
+.tracker-cta:hover { transform:translateY(-1px); }
 
 .tracker-preview { background:var(--w); border:2px solid var(--ink); padding:28px 24px; }
 .tp-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
@@ -374,17 +371,30 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   width:48px; height:60px; font-size:18px; transition:background .15s;
 }
 .qty-stepper button:hover { background:var(--sand); }
-.qty-stepper span { width:40px; text-align:center; font-size:15px; font-weight:500; }
+.qty-stepper input {
+  width:44px; height:60px; text-align:center; font-size:15px; font-weight:500;
+  font-family:inherit; color:inherit; border:none; background:none;
+  -moz-appearance:textfield;
+}
+.qty-stepper input::-webkit-outer-spin-button,
+.qty-stepper input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.qty-stepper input:focus { outline:2px solid var(--cobalt); outline-offset:-2px; }
 
-.btn-buy {
-  flex:1; padding:0 24px; height:60px;
+/* ─── UJEDNOLICONY STYL GŁÓWNYCH CTA ─── */
+/* Wspólny wygląd dla: Dodaj do koszyka, Przejdź do kasy, Zamawiam koszulkę, Pobierz formularz, @roadandrolls.
+   Wyjątek: przycisk hero (.hero-cta) celowo zachowuje własny, przezroczysty styl (leży na wideo). */
+.btn-cta {
+  padding:0 32px; height:60px;
   background:var(--cobalt); color:#fff;
   font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:.05em;
   border-radius:var(--r);
   transition:all .2s;
-  display:flex; align-items:center; justify-content:center; gap:10px;
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  text-align:center; white-space:nowrap;
 }
-.btn-buy:hover { background:var(--cobalt-dk); transform:translateY(-1px); }
+.btn-cta:hover { background:var(--cobalt-dk); transform:translateY(-1px); }
+
+.btn-buy { flex:1; }
 
 .pay-methods { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
 
@@ -422,6 +432,18 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 .about-right-placeholder-icon { font-size:40px; opacity:.3; }
 .about-right-placeholder-text {
   font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; opacity:.25;
+}
+
+/* ─── KONTAKT ─── */
+.contact-section {
+  padding:96px 64px; text-align:center; border-top:var(--border);
+  display:flex; flex-direction:column; align-items:center;
+}
+.contact-eyebrow { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; opacity:.5; margin-bottom:20px; }
+.contact-title { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(28px,3.6vw,44px); line-height:1.15; margin-bottom:32px; }
+.contact-title em { font-style:italic; color:var(--cobalt); }
+@media(max-width:900px){
+  .contact-section { padding:64px 32px; }
 }
 
 /* ─── FOOTER ─── */
@@ -550,17 +572,23 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 }
 .cart-item-remove:hover { color:var(--ink); }
 .cart-drawer-footer { padding:24px 28px; border-top:var(--border); flex-shrink:0; }
-.cart-drawer-subtotal {
+.cart-drawer-shipping-msg {
+  font-size:12px; line-height:1.5; color:var(--cobalt); background:var(--cobalt-pale);
+  padding:10px 12px; border-radius:var(--r); margin-bottom:16px;
+}
+.cart-drawer-shipping-msg.done { color:var(--green); background:#EAF4EE; }
+.cart-drawer-totals { margin-bottom:16px; }
+.cart-drawer-line {
   display:flex; justify-content:space-between; align-items:baseline;
-  font-family:'Space Mono',monospace; font-size:14px; margin-bottom:16px;
+  font-family:'Space Mono',monospace; font-size:13px; color:var(--grey);
+  padding:5px 0;
 }
-.cart-drawer-subtotal span:last-child { font-size:20px; font-weight:700; }
-.cart-drawer-checkout-btn {
-  display:block; width:100%; padding:18px; background:var(--cobalt); color:#fff;
-  text-align:center; font-family:'Space Mono',monospace; font-size:13px; font-weight:700;
-  letter-spacing:.05em; border-radius:var(--r); border:none; cursor:pointer; transition:background .2s;
+.cart-drawer-line-total {
+  color:var(--ink); border-top:var(--border); margin-top:6px; padding-top:12px;
 }
-.cart-drawer-checkout-btn:hover { background:var(--cobalt-dk); }
+.cart-drawer-line-total span:first-child { font-size:14px; }
+.cart-drawer-line-total span:last-child { font-size:20px; font-weight:700; }
+.cart-drawer-checkout-btn { display:flex; width:100%; border:none; cursor:pointer; }
 @media(max-width:900px){
   .cart-drawer { width:100%; max-width:100%; }
 }
@@ -613,22 +641,16 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 
 <!-- NAV -->
 <nav class="nav" id="mainNav">
-  <a href="#" class="nav-logo" aria-label="Road & Rolls">
+  <a href="/" class="nav-logo" aria-label="Road & Rolls">
     <img class="logo-white" src="images/logo-white.png" alt="Road & Rolls">
     <img class="logo-dark" src="images/logo-dark.png" alt="">
   </a>
   <div class="nav-links">
-    <a href="#" class="nav-link">Strona główna</a>
-    <a href="#kontakt" class="nav-link">Kontakt</a>
-    <a href="#o-nas" class="nav-link">O nas</a>
+    <a href="/" class="nav-link">Strona główna</a>
+    <a href="/#kontakt" class="nav-link">Kontakt</a>
+    <a href="/#onas" class="nav-link">O nas</a>
   </div>
   <div class="nav-icons">
-    <button class="nav-icon-btn" aria-label="Szukaj">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
-    <button class="nav-icon-btn" aria-label="Konto">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-    </button>
     <button class="nav-icon-btn" onclick="openCartDrawer()" aria-label="Koszyk">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
       <span class="nav-cart-count" id="navCartCount">0</span>
@@ -647,11 +669,22 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <div class="cart-drawer-empty">Twój koszyk jest pusty</div>
   </div>
   <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
-    <div class="cart-drawer-subtotal">
-      <span>Razem</span>
-      <span id="cartDrawerSubtotal">0,00 zł</span>
+    <p class="cart-drawer-shipping-msg" id="cartDrawerShippingMsg"></p>
+    <div class="cart-drawer-totals">
+      <div class="cart-drawer-line">
+        <span>Produkty</span>
+        <span id="cartDrawerProducts">0,00 zł</span>
+      </div>
+      <div class="cart-drawer-line">
+        <span>Dostawa</span>
+        <span id="cartDrawerShipping">—</span>
+      </div>
+      <div class="cart-drawer-line cart-drawer-line-total">
+        <span>Razem</span>
+        <span id="cartDrawerSubtotal">0,00 zł</span>
+      </div>
     </div>
-    <button class="cart-drawer-checkout-btn" onclick="goToCheckout()">Przejdź do kasy</button>
+    <button class="cart-drawer-checkout-btn btn-cta" onclick="goToCheckout()">Przejdź do kasy</button>
   </div>
 </aside>
 
@@ -663,7 +696,7 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Zacznij biegać z Road &amp; Rolls</h1>
-    <a href="#kup" class="hero-cta">DROP 001</a>
+    <a href="/#produkt" class="hero-cta">Zamawiam koszulkę</a>
   </div>
 </section>
 
@@ -678,7 +711,7 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 
 <!-- PRODUCT BUY SECTION -->
 <!-- W Shopify: sekcja produktu "Pakiet 001" — {{ product.title }}, {{ product.price | money }}, {{ product.images }}, {{ product.variants }} -->
-<section class="product-section" id="kup">
+<section class="product-section" id="produkt">
   <div class="product-visuals">
     <div class="gallery-main" id="galleryMain">
       <!-- {% for image in product.images %} — realne zdjęcia produktu "Pakiet 001" z Shopify CDN -->
@@ -730,10 +763,10 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <div class="buy-row">
       <div class="qty-stepper">
         <button type="button" onclick="changeBuyQty(-1)" aria-label="Zmniejsz ilość">−</button>
-        <span id="buyQty">1</span>
+        <input type="number" id="buyQty" value="1" min="1" step="1" inputmode="numeric" aria-label="Ilość" oninput="onBuyQtyInput(this)" onblur="onBuyQtyBlur(this)">
         <button type="button" onclick="changeBuyQty(1)" aria-label="Zwiększ ilość">+</button>
       </div>
-      <button class="btn-buy" onclick="addToCart()">
+      <button class="btn-buy btn-cta" onclick="addToCart()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
         DODAJ DO KOSZYKA
       </button>
@@ -781,8 +814,8 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
         <li>Bieg 5, 15 i 30 = motywacyjny boost (wstawiasz storkę na Instagrama, a my repostujemy)</li>
         <li>Po 30/30 zostajesz oficjalnym Ambasadorem Road & Rolls</li>
       </ul>
-      <a class="tracker-cta" href="#kup">
-        KUPUJĘ!
+      <a class="tracker-cta btn-cta" href="/#produkt">
+        Zamawiam koszulkę
       </a>
     </div>
 
@@ -803,7 +836,7 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 </section>
 
 <!-- ABOUT -->
-<section class="about reveal" id="o-nas">
+<section class="about reveal" id="onas">
   <div class="about-left">
     <p class="about-eyebrow">O NAS</p>
     <h2 class="about-title">5km po bułkę.<br>21km po <em>życiówkę.</em></h2>
@@ -811,68 +844,72 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <p class="about-text">To więcej niż koszulka i wyzwanie. To sposób, żeby robić coś dobrego i przy okazji sprawić, że bieganie stanie się najlepszą częścią dnia.</p>
     <p class="about-text">Na początku miała być tylko koszulka. Prosta rzecz, która przy okazji zbiera pieniądze na cele charytatywne. Szybko jednak poczuliśmy, że to za mało i rozwinęliśmy to w coś większego — wyzwanie, w którym każdy bieg ma znaczenie, a z każdego zamówienia 30 zł trafia na realną pomoc.</p>
     <p class="about-text">Współpracujemy z <strong>Fundacją SOS Wioski Dziecięce</strong> — to do niej trafia część środków z każdego zamówienia oraz wpłaty za ukończone wyzwania.</p>
-    <a class="about-link" href="#kup">Kup pakiet i dołącz →</a>
+    <a class="about-link" href="/#produkt">Kup pakiet i dołącz →</a>
   </div>
   <div class="about-right">
     <img class="about-right-photo" src="images/about-photo.jpg" alt="Road & Rolls — zespół w sklepie">
   </div>
 </section>
 
+<!-- KONTAKT -->
+<section class="contact-section reveal" id="kontakt">
+  <p class="contact-eyebrow">MASZ PYTANIA PRZED ZAKUPEM?</p>
+  <h2 class="contact-title">Najłatwiej złapiesz nas<br><em>na Instagramie.</em></h2>
+  <a class="contact-cta btn-cta" href="https://instagram.com/roadandrolls" target="_blank" rel="noopener">@roadandrolls</a>
+</section>
+
 <!-- FOOTER NEWSLETTER -->
-<div class="footer-newsletter">
+<div class="footer-newsletter" id="newsletter">
   <div class="fn-left">
     <h3 class="fn-title">Dołącz do newslettera i nie <em>przegap dropów!</em></h3>
     <p class="fn-sub">Bądź pierwszy gdy Drop 002 wejdzie do sprzedaży. Zero spamu, tylko to co ważne.</p>
   </div>
-  <form class="fn-form" onsubmit="subNewsletter(event)">
-    <input class="fn-input" type="email" placeholder="Twój adres e-mail" required>
+  <form class="fn-form" id="newsletterForm">
+    <input class="fn-input" type="email" name="email" placeholder="Twój adres e-mail" required>
     <button class="fn-btn" type="submit">ZAPISUJĘ SIĘ →</button>
   </form>
 </div>
 
-<!-- Dane polityk sklepu — w Shopify podmień całą zawartość tagu na: {{ shop.policies | json }}
-     (Shopify zwraca tylko te polityki, które sprzedawca uzupełnił w Ustawienia → Polityki) -->
+<!-- Dokumenty statyczne sklepu — realne pliki w repozytorium (docs/polityki/, docs/formularze/) -->
 <script type="application/json" id="ShopPolicies">
 [
-  {"title": "Regulamin sklepu", "url": "/policies/terms-of-service"},
-  {"title": "Polityka zwrotów", "url": "/policies/refund-policy"},
-  {"title": "Polityka dostawy", "url": "/policies/shipping-policy"},
-  {"title": "Polityka prywatności", "url": "/policies/privacy-policy"}
+  {"title": "Regulamin sklepu", "url": "/polityki/regulamin.html"},
+  {"title": "Polityka prywatności", "url": "/polityki/polityka-prywatnosci.html"},
+  {"title": "Polityka cookies", "url": "/polityki/polityka-cookies.html"},
+  {"title": "Zwroty", "url": "/formularze/formularz-zwrotu.pdf"},
+  {"title": "Reklamacje", "url": "/formularze/formularz-reklamacyjny.pdf"}
 ]
 </script>
 
-<footer id="kontakt">
+<footer>
   <div class="footer-main">
     <div>
       <div class="footer-brand-name">Road <span>&</span> Rolls</div>
       <p class="footer-brand-desc">Koszulka, wyzwanie i misja w jednym. Dla tych, co lubią się ruszyć — nieważne czy to 500m czy maraton. Każdy bieg to 1 zł na cele charytatywne. #biegampobulki</p>
       <p class="footer-charity-partner">Wspieramy Fundację SOS Wioski Dziecięce</p>
       <div class="footer-socials">
-        <a href="#" class="footer-social">📷</a>
-        <a href="#" class="footer-social">🎵</a>
+        <a href="https://instagram.com/roadandrolls" target="_blank" rel="noopener" class="footer-social">📷</a>
       </div>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">SKLEP</div>
-      <a href="#kup">Pakiet Challange — 169 zł</a>
-      <a href="#tracker">Jak to działa</a>
-      <a href="#">Drop 002 — wkrótce</a>
+      <a href="/#produkt">Koszulka</a>
+      <a href="/#tracker">Tracker</a>
+      <a href="/#onas">O marce</a>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">INFORMACJE</div>
-      <!-- W Shopify: {% for policy in shop.policies %}<a href="{{ policy.url }}">{{ policy.title }}</a>{% endfor %}
-           — pokazują się tylko te polityki, które faktycznie uzupełniłaś w Ustawienia → Polityki -->
-      <div id="footerPolicies"><!-- generowane przez JS z #ShopPolicies --></div>
-      <a href="/pages/faq">FAQ</a>
+      <!-- generowane przez JS z #ShopPolicies -->
+      <div id="footerPolicies"></div>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">KONTAKT</div>
-      <a href="mailto:kontakt@roadandrolls.pl">kontakt@roadandrolls.pl</a>
-      <a href="https://instagram.com/roadandrolls" target="_blank" rel="noopener">@road&rolls</a>
+      <a href="mailto:store@roadandrolls.com">store@roadandrolls.com</a>
+      <a href="https://instagram.com/roadandrolls" target="_blank" rel="noopener">@roadandrolls</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 ROAD & ROLLS™ · PO PROSTU BIEGNIJ</span>
+    <span class="footer-copy">© 2026 Road & Rolls™. Wszystkie prawa zastrzeżone.</span>
     <div class="footer-payments">
       <span class="pay-chip">BLIK</span>
       <span class="pay-chip">VISA</span>
@@ -944,7 +981,20 @@ function selectSize(variantId, btn){
 
 function changeBuyQty(delta){
   buyQty = Math.max(1, buyQty + delta);
-  document.getElementById('buyQty').textContent = buyQty;
+  document.getElementById('buyQty').value = buyQty;
+}
+
+// Ręczne wpisywanie ilości: tylko liczby całkowite, minimum 1
+function onBuyQtyInput(input){
+  const digits = input.value.replace(/[^0-9]/g, '');
+  input.value = digits;
+  const n = parseInt(digits, 10);
+  if(!isNaN(n) && n >= 1){ buyQty = n; }
+}
+function onBuyQtyBlur(input){
+  const n = parseInt(input.value, 10);
+  buyQty = (!isNaN(n) && n >= 1) ? n : 1;
+  input.value = buyQty;
 }
 
 // ─── KOSZYK — WooCommerce Store API (shop.roadandrolls.com) ───
@@ -1076,7 +1126,37 @@ function renderCartDrawer(){
     `;
   }).join('');
   footer.style.display = 'block';
-  document.getElementById('cartDrawerSubtotal').textContent = wcFormatPrice(currentCart.totals.total_price, currentCart.totals.currency_minor_unit);
+  const t = currentCart.totals;
+  const minorUnit = t.currency_minor_unit;
+  document.getElementById('cartDrawerProducts').textContent = wcFormatPrice(t.total_items, minorUnit);
+  document.getElementById('cartDrawerSubtotal').textContent = wcFormatPrice(t.total_price, minorUnit);
+
+  // Dostawa — WooCommerce domyślnie wybiera pierwszą dostępną metodę, ale dopóki nie ma
+  // żadnej wyliczonej stawki (np. brak skonfigurowanych metod dla danego kraju), pokazujemy
+  // informację, że koszt pojawi się po wyborze metody w kasie, zamiast mylącego "0,00 zł"
+  const shippingEl = document.getElementById('cartDrawerShipping');
+  const hasSelectedRate = currentCart.needs_shipping && (currentCart.shipping_rates || [])
+    .some(pkg => (pkg.shipping_rates || []).some(r => r.selected));
+  if (currentCart.needs_shipping && hasSelectedRate) {
+    shippingEl.textContent = wcFormatPrice(t.total_shipping, minorUnit);
+  } else if (currentCart.needs_shipping) {
+    shippingEl.textContent = 'Wyliczona w kasie';
+  } else {
+    shippingEl.textContent = wcFormatPrice(0, minorUnit);
+  }
+
+  // Komunikat o darmowej dostawie — licząc od wartości samych produktów (bez kosztu dostawy)
+  const FREE_SHIPPING_THRESHOLD = 30000; // 300 zł w groszach
+  const productsTotal = Number(t.total_items);
+  const msgEl = document.getElementById('cartDrawerShippingMsg');
+  if (productsTotal >= FREE_SHIPPING_THRESHOLD) {
+    msgEl.textContent = '🎉 Masz darmową dostawę!';
+    msgEl.classList.add('done');
+  } else {
+    const missing = FREE_SHIPPING_THRESHOLD - productsTotal;
+    msgEl.textContent = `Jeszcze ${wcFormatPrice(missing, minorUnit)} do darmowej dostawy!`;
+    msgEl.classList.remove('done');
+  }
 }
 
 function openCartDrawer(){
@@ -1105,6 +1185,8 @@ async function addToCart(){
   if (ok) {
     showToast(`✓ Koszulka (${selectedVariant.size}) dodana do koszyka`);
     openCartDrawer();
+    buyQty = 1;
+    document.getElementById('buyQty').value = 1;
   }
 
   if(btn){ btn.disabled = false; }
