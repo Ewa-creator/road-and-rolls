@@ -1223,11 +1223,42 @@ function showToast(msg){
 }
 
 // ─── NEWSLETTER ───
-function subNewsletter(e){
+// Zapis realnie trafia do MailerLite przez bezpieczny proxy na shop.roadandrolls.com —
+// klucz API MailerLite nigdy nie trafia do kodu strony, jest trzymany tylko po stronie WordPressa.
+const NEWSLETTER_API = 'https://shop.roadandrolls.com/wp-json/roadandrolls/v1/newsletter';
+
+async function subNewsletter(e){
   e.preventDefault();
-  showToast('✓ Zapisano! Plan PDF już leci na Twój mail 🥐');
-  e.target.reset();
+  const form = e.target;
+  const emailInput = form.querySelector('input[name="email"]');
+  const btn = form.querySelector('button[type="submit"]');
+  const email = emailInput.value.trim();
+
+  btn.disabled = true;
+  try {
+    const res = await fetch(NEWSLETTER_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+    });
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      showToast('Zapisano! 🎉 Od teraz będziesz na bieżąco z nowościami. Obiecujemy nie wysyłać spamu 😉');
+      form.reset();
+    } else if (data.status === 'duplicate') {
+      showToast('Miło Cię znowu widzieć! 😊 Już jesteś zapisany do naszego newslettera.');
+      form.reset();
+    } else {
+      showToast('Ups! Coś poszło nie tak. Spróbuj ponownie za chwilę.');
+    }
+  } catch (err) {
+    showToast('Ups! Coś poszło nie tak. Spróbuj ponownie za chwilę.');
+  }
+  btn.disabled = false;
 }
+
+document.getElementById('newsletterForm').addEventListener('submit', subNewsletter);
 
 // ─── SCROLL REVEAL ───
 const observer = new IntersectionObserver(entries => {
