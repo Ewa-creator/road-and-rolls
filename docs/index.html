@@ -511,7 +511,22 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 .modal { background:var(--w); border-radius:var(--r); padding:40px; max-width:520px; width:90%; max-height:88vh; overflow-y:auto; }
 .modal-title { font-family:'Fraunces',serif; font-weight:900; font-size:24px; margin-bottom:24px; }
 .size-diagram-row { display:flex; align-items:center; gap:24px; background:var(--cobalt-pale); border-radius:var(--r); padding:20px; margin-bottom:24px; }
-.size-diagram { flex-shrink:0; }
+.size-photo-block { display:flex; align-items:stretch; gap:8px; flex-shrink:0; }
+.size-ruler { position:relative; width:24px; flex-shrink:0; }
+.size-ruler-track { position:absolute; left:50%; width:0; border-left:1.5px solid var(--cobalt); }
+.size-ruler-cap { position:absolute; left:-4px; width:9px; height:0; border-top:1.5px solid var(--cobalt); }
+.size-ruler-cap-top { top:0; }
+.size-ruler-cap-bottom { bottom:0; }
+.size-ruler-badge {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:22px; height:22px; border-radius:50%;
+  background:var(--w); border:1.5px solid var(--cobalt); color:var(--cobalt);
+  font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+.size-photo-wrap { position:relative; width:150px; aspect-ratio:1080/1350; border-radius:calc(var(--r) - 6px); overflow:hidden; background:#faf7f0; flex-shrink:0; }
+.size-photo { width:100%; height:100%; object-fit:cover; display:block; }
+.size-guide-tick { position:absolute; left:0; right:0; height:0; border-top:1.5px dashed var(--cobalt); opacity:.5; }
 .size-diagram-legend { display:flex; flex-direction:column; gap:10px; }
 .size-diagram-legend p { font-size:13px; line-height:1.5; color:var(--ink); display:flex; align-items:flex-start; gap:10px; }
 .size-diagram-dot {
@@ -941,22 +956,23 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;opacity:.4;margin-bottom:20px;">UNISEX · KRÓJ OVERSIZED</p>
 
     <div class="size-diagram-row">
-      <svg class="size-diagram" viewBox="0 0 200 220" width="140" height="154" role="img" aria-label="Schemat pomiaru koszulki: A to długość, B to szerokość">
-        <path d="M62 18 L38 18 L14 48 L32 66 L48 52 L48 194 L152 194 L152 52 L168 66 L186 48 L162 18 L138 18 Q128 34 100 34 Q72 34 62 18 Z" fill="var(--sand)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-        <line x1="18" y1="52" x2="18" y2="194" stroke="var(--cobalt)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <line x1="12" y1="52" x2="24" y2="52" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <line x1="12" y1="194" x2="24" y2="194" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <circle cx="18" cy="123" r="11" fill="var(--w)" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <text x="18" y="128" fill="var(--cobalt)" font-size="13" font-weight="700" text-anchor="middle" font-family="Space Mono, monospace">A</text>
-        <line x1="48" y1="90" x2="152" y2="90" stroke="var(--cobalt)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <line x1="48" y1="84" x2="48" y2="96" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <line x1="152" y1="84" x2="152" y2="96" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <circle cx="100" cy="90" r="11" fill="var(--w)" stroke="var(--cobalt)" stroke-width="1.5"/>
-        <text x="100" y="95" fill="var(--cobalt)" font-size="13" font-weight="700" text-anchor="middle" font-family="Space Mono, monospace">B</text>
-      </svg>
+      <div class="size-photo-block">
+        <div class="size-ruler" aria-hidden="true">
+          <div class="size-ruler-track" style="top:15.8%; bottom:17.1%;">
+            <span class="size-ruler-cap size-ruler-cap-top"></span>
+            <span class="size-ruler-cap size-ruler-cap-bottom"></span>
+          </div>
+          <span class="size-ruler-badge" style="top:49.35%;">A</span>
+        </div>
+        <div class="size-photo-wrap">
+          <img class="size-photo" src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/2.png?v=1782689631" alt="Koszulka Road & Rolls, widok z tyłu — linia pokazuje długość mierzoną od szwu ramion do dołu">
+          <span class="size-guide-tick" style="top:15.8%;"></span>
+          <span class="size-guide-tick" style="top:82.9%;"></span>
+        </div>
+      </div>
       <div class="size-diagram-legend">
-        <p><span class="size-diagram-dot">A</span> Długość koszulki — mierzona od ramienia w dół.</p>
-        <p><span class="size-diagram-dot">B</span> Szerokość — półobwód klatki, mierzony pod pachami.</p>
+        <p><span class="size-diagram-dot">A</span> Długość koszulki — od szwu na ramieniu do dołu.</p>
+        <p><span class="size-diagram-dot">B</span> Szerokość — półobwód klatki, mierzony pod pachami (patrz tabela).</p>
       </div>
     </div>
 
