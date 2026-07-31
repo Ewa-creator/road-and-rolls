@@ -522,11 +522,18 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   width:22px; height:22px; border-radius:50%;
   background:var(--w); border:1.5px solid var(--cobalt); color:var(--cobalt);
   font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
-  display:flex; align-items:center; justify-content:center;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
-.size-photo-wrap { position:relative; width:150px; aspect-ratio:1080/1350; border-radius:calc(var(--r) - 6px); overflow:hidden; background:#faf7f0; flex-shrink:0; }
-.size-photo { width:100%; height:100%; object-fit:cover; display:block; }
-.size-guide-tick { position:absolute; left:0; right:0; height:0; border-top:1.5px dashed var(--cobalt); opacity:.5; }
+.size-photo-col { display:flex; flex-direction:column; gap:6px; }
+.size-photo-wrap { position:relative; width:190px; aspect-ratio:1028/922; border-radius:calc(var(--r) - 6px); overflow:hidden; background:transparent; flex-shrink:0; }
+.size-photo { width:100%; height:100%; object-fit:contain; display:block; }
+.size-guide-tick { position:absolute; height:0; border-top:1.5px dashed var(--cobalt); opacity:.5; left:0; right:0; }
+.size-guide-tick-v { position:absolute; width:0; border-left:1.5px dashed var(--cobalt); opacity:.5; top:0; bottom:0; height:auto; border-top:none; }
+.size-ruler-h { position:relative; height:22px; }
+.size-ruler-h-track { position:absolute; top:50%; height:0; border-top:1.5px solid var(--cobalt); }
+.size-ruler-cap-h { position:absolute; top:-4px; width:0; height:9px; border-left:1.5px solid var(--cobalt); }
+.size-ruler-cap-h-left { left:0; }
+.size-ruler-cap-h-right { right:0; }
 .size-diagram-legend { display:flex; flex-direction:column; gap:10px; }
 .size-diagram-legend p { font-size:13px; line-height:1.5; color:var(--ink); display:flex; align-items:flex-start; gap:10px; }
 .size-diagram-dot {
@@ -958,21 +965,32 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <div class="size-diagram-row">
       <div class="size-photo-block">
         <div class="size-ruler" aria-hidden="true">
-          <div class="size-ruler-track" style="top:15.8%; bottom:17.1%;">
+          <div class="size-ruler-track" style="top:1.5%; bottom:1.5%;">
             <span class="size-ruler-cap size-ruler-cap-top"></span>
             <span class="size-ruler-cap size-ruler-cap-bottom"></span>
           </div>
-          <span class="size-ruler-badge" style="top:49.35%;">A</span>
+          <span class="size-ruler-badge" style="top:50%;">A</span>
         </div>
-        <div class="size-photo-wrap">
-          <img class="size-photo" src="https://cdn.shopify.com/s/files/1/1052/5235/6426/files/2.png?v=1782689631" alt="Koszulka Road & Rolls, widok z tyłu — linia pokazuje długość mierzoną od szwu ramion do dołu">
-          <span class="size-guide-tick" style="top:15.8%;"></span>
-          <span class="size-guide-tick" style="top:82.9%;"></span>
+        <div class="size-photo-col">
+          <div class="size-photo-wrap">
+            <img class="size-photo" src="images/size-guide-shirt.png" alt="Koszulka Road & Rolls, widok z tyłu, wycięta z tła — zaznaczona długość (A) i szerokość (B)">
+            <span class="size-guide-tick" style="top:1.5%;"></span>
+            <span class="size-guide-tick" style="top:98.5%;"></span>
+            <span class="size-guide-tick-v" style="left:21.4%;"></span>
+            <span class="size-guide-tick-v" style="left:78.1%;"></span>
+          </div>
+          <div class="size-ruler-h" aria-hidden="true">
+            <div class="size-ruler-h-track" style="left:21.4%; right:21.9%;">
+              <span class="size-ruler-cap-h size-ruler-cap-h-left"></span>
+              <span class="size-ruler-cap-h size-ruler-cap-h-right"></span>
+            </div>
+            <span class="size-ruler-badge" style="left:49.75%;">B</span>
+          </div>
         </div>
       </div>
       <div class="size-diagram-legend">
         <p><span class="size-diagram-dot">A</span> Długość koszulki — od szwu na ramieniu do dołu.</p>
-        <p><span class="size-diagram-dot">B</span> Szerokość — półobwód klatki, mierzony pod pachami (patrz tabela).</p>
+        <p><span class="size-diagram-dot">B</span> Szerokość — półobwód klatki, mierzony pod pachami.</p>
       </div>
     </div>
 
