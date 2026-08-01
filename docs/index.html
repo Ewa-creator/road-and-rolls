@@ -138,6 +138,17 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   object-fit:cover; object-position:center;
   display:block;
 }
+.hero-image-mobile { display:none; }
+/* Autoplay wideo w tle jest niestabilne na telefonach (różne przeglądarki/systemy blokują
+   je na różne sposoby) — na mobile pokazujemy statyczne zdjęcie zamiast wideo. */
+@media(max-width:900px){
+  .hero-video { display:none; }
+  .hero-image-mobile {
+    display:block; position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+}
 .hero-video-placeholder {
   position:absolute; inset:0;
   background:linear-gradient(135deg, #111110 0%, #1A3A7A 100%);
@@ -728,6 +739,7 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   <video class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="video/hero-short.mp4" type="video/mp4">
   </video>
+  <img class="hero-image-mobile" src="images/hero-mobile.jpg" alt="Koszulka Road & Rolls na bieżni, w tle biegacz w ruchu">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Zacznij biegać z Road &amp; Rolls</h1>
