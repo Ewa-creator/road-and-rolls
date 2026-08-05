@@ -521,30 +521,8 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
 .modal-overlay.open { opacity:1; pointer-events:auto; }
 .modal { background:var(--w); border-radius:var(--r); padding:40px; max-width:520px; width:90%; max-height:88vh; overflow-y:auto; }
 .modal-title { font-family:'Fraunces',serif; font-weight:900; font-size:24px; margin-bottom:24px; }
-.size-diagram-row { display:flex; align-items:center; gap:24px; background:var(--cobalt-pale); border-radius:var(--r); padding:20px; margin-bottom:24px; }
-.size-photo-block { display:flex; align-items:stretch; gap:8px; flex-shrink:0; }
-.size-ruler { position:relative; width:24px; flex-shrink:0; }
-.size-ruler-track { position:absolute; left:50%; width:0; border-left:1.5px solid var(--cobalt); }
-.size-ruler-cap { position:absolute; left:-4px; width:9px; height:0; border-top:1.5px solid var(--cobalt); }
-.size-ruler-cap-top { top:0; }
-.size-ruler-cap-bottom { bottom:0; }
-.size-ruler-badge {
-  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:22px; height:22px; border-radius:50%;
-  background:var(--w); border:1.5px solid var(--cobalt); color:var(--cobalt);
-  font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-}
-.size-photo-col { display:flex; flex-direction:column; gap:6px; }
-.size-photo-wrap { position:relative; width:190px; aspect-ratio:1028/922; border-radius:calc(var(--r) - 6px); overflow:hidden; background:transparent; flex-shrink:0; }
-.size-photo { width:100%; height:100%; object-fit:contain; display:block; }
-.size-guide-tick { position:absolute; height:0; border-top:1.5px dashed var(--cobalt); opacity:.5; left:0; right:0; }
-.size-guide-tick-v { position:absolute; width:0; border-left:1.5px dashed var(--cobalt); opacity:.5; top:0; bottom:0; height:auto; border-top:none; }
-.size-ruler-h { position:relative; height:22px; }
-.size-ruler-h-track { position:absolute; top:50%; height:0; border-top:1.5px solid var(--cobalt); }
-.size-ruler-cap-h { position:absolute; top:-4px; width:0; height:9px; border-left:1.5px solid var(--cobalt); }
-.size-ruler-cap-h-left { left:0; }
-.size-ruler-cap-h-right { right:0; }
+.size-diagram-single { background:var(--cobalt-pale); border-radius:var(--r); padding:20px; margin-bottom:24px; }
+.size-diagram-img { display:block; width:100%; max-width:320px; margin:0 auto 20px; border-radius:calc(var(--r) - 6px); }
 .size-diagram-legend { display:flex; flex-direction:column; gap:10px; }
 .size-diagram-legend p { font-size:13px; line-height:1.5; color:var(--ink); display:flex; align-items:flex-start; gap:10px; }
 .size-diagram-dot {
@@ -552,9 +530,6 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
   background:var(--w); border:1.5px solid var(--cobalt); color:var(--cobalt);
   font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
   display:flex; align-items:center; justify-content:center;
-}
-@media(max-width:520px){
-  .size-diagram-row { flex-direction:column; align-items:flex-start; }
 }
 .size-table { width:100%; border-collapse:collapse; font-size:13px; }
 .size-table th { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.08em; text-align:left; padding:8px 12px; background:var(--sand); }
@@ -974,32 +949,8 @@ button { cursor:pointer; border:none; background:none; font-family:inherit; }
     <h3 class="modal-title">Tabela rozmiarów</h3>
     <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;opacity:.4;margin-bottom:20px;">UNISEX · KRÓJ OVERSIZED</p>
 
-    <div class="size-diagram-row">
-      <div class="size-photo-block">
-        <div class="size-ruler" aria-hidden="true">
-          <div class="size-ruler-track" style="top:1.5%; bottom:1.5%;">
-            <span class="size-ruler-cap size-ruler-cap-top"></span>
-            <span class="size-ruler-cap size-ruler-cap-bottom"></span>
-          </div>
-          <span class="size-ruler-badge" style="top:50%;">A</span>
-        </div>
-        <div class="size-photo-col">
-          <div class="size-photo-wrap">
-            <img class="size-photo" src="images/size-guide-shirt.png" alt="Koszulka Road & Rolls, widok z tyłu, wycięta z tła — zaznaczona długość (A) i szerokość (B)">
-            <span class="size-guide-tick" style="top:1.5%;"></span>
-            <span class="size-guide-tick" style="top:98.5%;"></span>
-            <span class="size-guide-tick-v" style="left:21.4%;"></span>
-            <span class="size-guide-tick-v" style="left:78.1%;"></span>
-          </div>
-          <div class="size-ruler-h" aria-hidden="true">
-            <div class="size-ruler-h-track" style="left:21.4%; right:21.9%;">
-              <span class="size-ruler-cap-h size-ruler-cap-h-left"></span>
-              <span class="size-ruler-cap-h size-ruler-cap-h-right"></span>
-            </div>
-            <span class="size-ruler-badge" style="left:49.75%;">B</span>
-          </div>
-        </div>
-      </div>
+    <div class="size-diagram-single">
+      <img class="size-diagram-img" src="images/A.png" alt="Koszulka Road & Rolls z zaznaczonymi liniami pomiaru: A to długość, B to szerokość">
       <div class="size-diagram-legend">
         <p><span class="size-diagram-dot">A</span> Długość koszulki — od szwu na ramieniu do dołu.</p>
         <p><span class="size-diagram-dot">B</span> Szerokość — półobwód klatki, mierzony pod pachami.</p>
